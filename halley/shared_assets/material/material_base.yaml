@@ -1,0 +1,11 @@
+---
+name: Halley/MaterialBase
+uniforms:
+  - HalleyBlock:
+    - name: u_mvp
+      type: mat4
+      canEdit: false
+    - name: u_viewPortSize
+      type: vec2
+      canEdit: false
+...

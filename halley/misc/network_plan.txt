@@ -1,0 +1,59 @@
+/*
+
+NetworkService              - network core
+NetworkPacket               - a packet sent or received 
+IConnection                 - connection interface
+ + UDPConnection            - sends and receives packets via UDP
+ + InstabilitySimulator     - adapter class, simulates bad connections 
+ + ReliableConnection       - tracks packets, sends acks for packets, computes ping and data loss
+IMessage                    - game-specific message
+MessageQueue                - converts messages into packets and vice-versa, re-sends unacked reliable messages
+IMessageStream              - converts game messages into network messages
+ + StandardMessageStream    - has flags for reliability and ordering
+ + DeltaCodedMessageStream  - compresses messages as delta against last acked
+ + LargeMessageStream       - splits message into several sub-messages, for file transfer
+
+*/
+
+// Open connection
+NetworkService network;
+network.startListening(port);
+auto udp = network.tryAcceptConnection();
+auto udp = network.connect(address, port);
+auto conn = simulate? std::make_unique<InstabilitySimulator>(udp) : std::move(udp);
+auto reliableConn = std::make_unique<ReliableConnection>(conn);
+
+// Setup protocol
+auto msgs = std::make_unique<MessageQueue>(reliableConn);
+msgs->addStream(std::make_unique<StandardMessageStream>(false, true), 0);
+msgs->addStream(std::make_unique<DeltaCodedMessageStream>(), 1);
+msgs->addStream(std::make_unique<LargeMessageStream>(), 2);
+
+// Receive data
+network->receive();
+auto toProcess = msgs->receive();
+
+// Send data
+msgs->enqueue(foo, 0);
+msgs->enqueue(bar, 1);
+msgs->send();
+
+
+
+Reliable ordered: protocol establishment
+Reliable unordered: file transfer with tagged chunks
+Unreliable ordered: position
+Unreliable unordered: special effects
+
+
+
+UDPPacket
+ + IP+UDP header: protocol data [20B]
+ + Header: connectionId [1-2B]
+ + ReliableConnectionPacket                                     {encrypted once that's negotiated}
+   + Header: ack [2B], ackBits [4B], firstSeq [2B]              {firstSeq is the sequence of the first packet in this. Others are in sequential order.}
+   + NetworkPacket                                              {there can multiple packets}
+     + Header: resendFlag [1b], size [7-15b], resendSeq [0-2B]  {if the resendFlag is set, resendSeq will contain the sequence of the packet it's re-sending.}                              
+     + NetworkMessage                                           {there can be many network messages}
+       + Header: channel [1B], seq[0-2B], size [1-2B]           {seq is only for ordered channels. If the previous message was on the same channel, seq is implied as seq+1}
+       + Data: [size B]                                         {this is passed to the game to decode as it sees fit}

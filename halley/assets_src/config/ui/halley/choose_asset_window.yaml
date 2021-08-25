@@ -1,0 +1,31 @@
+---
+widget: { class: image, image: $ui_float_window, innerBorder: [ 14, 11, 14, 14 ], colour: $ui_popupWindow }
+sizer: { type: vertical }
+children:
+- sizer: { type: horizontal }
+  children:
+  - widget: { id: title, class: label, text: "Choose Asset" }
+    fill: centre
+    proportion: 1
+- widget: { id: tabsContainer, class: scrollBarPane, scrollHorizontal: true, scrollVertical: false, autoHide: true, size: [50, 10], active: false }
+  proportion: 0
+  sizer: { type: vertical }
+  border: [0, 4, 0, 0]
+  children:
+  - widget: { id: tabs, class: list, type: horizontal, style: tabs }
+    proportion: 1
+- widget: { id: search, class: textInput, size: [50, 22], ghostText: Search, tooltip: "Type the name (or part of the name) of the asset you want to search for." }
+  border: [1, 4, 1, 1]
+- widget: { class: scrollBarPane, size: [610, 400], scrollHorizontal: true, scrollVertical: true, autoHide: true }
+  border: [1, 4, 1, 1]
+  children:
+  - widget: { id: options, class: list, size: [400, 400] }
+    proportion: 1
+- sizer: { type: horizontal }
+  children:
+  - widget: { id: ok, class: button, text: "OK" }
+    proportion: 1
+  - widget: { id: cancel, class: button, text: "Cancel" }
+    proportion: 1
+
+...

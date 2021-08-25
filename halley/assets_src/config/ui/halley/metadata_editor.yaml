@@ -1,0 +1,14 @@
+---
+widget: { class: widget }
+sizer: { type: vertical }
+children:
+- widget: { class: image, image: "$ui_title_capsule", innerBorder: [ 4, 1, 4, 4 ], colour: $ui_staticBox, size: [250, 10] }
+  sizer: { type: vertical }
+  children:
+  - widget: { id: "", class: label, text: "Metadata" }
+    fill: centre
+  - widget: { id: fields, class: widget, innerBorder: [0, 2, 0, 0] }
+    sizer: { type: grid, columns: 2 }
+  - widget: { id: applyChanges, class: button, text: "Apply", size: [30, 30] }
+    border: [0, 2, 0, 0]
+...

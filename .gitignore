@@ -1,3 +1,11 @@
+#Folders
+assets/
+bin/
+build/
+build-external/
+gen/
+
+
 # Prerequisites
 *.d
 

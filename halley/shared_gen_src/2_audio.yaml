@@ -1,0 +1,34 @@
+---
+
+component:
+  name: AudioListener
+  componentDependencies: [Transform2D]
+  members:
+  - referenceDistance:
+      type: float
+      defaultValue: 500
+      displayName: Reference Distance
+
+---
+
+component:
+  name: AudioSource
+  componentDependencies: [Transform2D]
+  members:
+  - event:
+      type: 'Halley::ResourceReference<Halley::AudioEvent>'
+      displayName: Event
+  - rangeMin:
+      type: float
+      defaultValue: 50
+      displayName: Min Range
+  - rangeMax:
+      type: float
+      defaultValue: 100
+      displayName: Max Range
+  - playing:
+      type: 'std::vector<Halley::AudioHandle>'
+      canEdit: false
+      canSave: false
+
+...

@@ -1,0 +1,10 @@
+---
+widget: { class: image, image: "$ui_title_capsule", innerBorder: [ 4, 1, 4, 4 ], colour: $ui_staticBoxSubdue }
+sizer: { type: vertical }
+children:
+- widget: { id: fieldName, class: label, text: "Name" }
+  fill: centre
+- widget: { id: fields, class: widget }
+  border: [1, 4, 1, 1]
+  sizer: { type: vertical, gap: 2 }
+...

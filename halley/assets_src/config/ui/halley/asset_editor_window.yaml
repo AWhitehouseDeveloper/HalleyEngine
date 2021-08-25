@@ -1,0 +1,25 @@
+widget: { class: widget }
+sizer: { type: horizontal }
+children:
+- sizer: { type: vertical }
+  proportion: 1
+  children:
+  - widget: { class: widget, id: contentListDropdownArea }
+    sizer: { type: horizontal}
+    children:
+      - widget: { class: label, id: contentListDropdownLabel, text: "Sub-asset:"}
+        border: [0, 0, 5, 0]
+        fill: [centreVertical]
+      - widget: { id: contentListDropdown, class: dropdown, size: [200, 22] }
+  - widget: { id: contentList, class: list, style: tabs, type: horizontal }
+  - widget: { id: content, class: pagedPane }
+    fill: fill
+    sizer: { type: horizontal }
+    proportion: 1
+- widget: { id: metadataPanel, class: widget, active: false }
+  sizer: { type: vertical }
+  border: [10, 0, 0, 0]
+  children:
+  - widget: { class: metadataEditor }
+  - widget: { id: openFile, class: button, text: Open File }
+  - widget: { id: showFile, class: button, text: Show File }

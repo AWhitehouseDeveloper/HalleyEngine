@@ -1,0 +1,11 @@
+---
+widget: { class: widget }
+sizer: { type: vertical }
+children:
+- widget: { id: open, class: button, text: "Open in Scene Editor", size: [300, 80] }
+  fill: centre
+  proportion: 1
+- widget: { id: openDisabled, class: button, text: "Project not Built", size: [300, 80], enabled: false }
+  fill: centre
+  proportion: 1
+...

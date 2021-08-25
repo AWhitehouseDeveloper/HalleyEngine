@@ -1,0 +1,25 @@
+---
+widget: { class: widget }
+sizer: { type: vertical }
+children:
+- widget: { class: image, image: "$ui_title_capsule", innerBorder: [ 6, 3, 6, 6 ], colour: $ui_popupWindow, size: [400, 300] }
+  sizer: { type: vertical }
+  fill: centre
+  proportion: 1
+  children:
+  - sizer: { type: horizontal }
+    children:
+    - widget: { class: label, text: "Game Properties" }
+      fill: centre
+      proportion: 1
+  - widget: { id: fields, class: widget }
+    proportion: 1
+    border: [1, 4, 1, 1]
+    sizer: { type: vertical, gap: 2 }
+  - sizer: { type: horizontal }
+    children:
+    - stretchSpacer: {}
+      proportion: 1
+    - widget: { id: save, class: button, text: Save, size: [100, 22] }
+    - widget: { id: cancel, class: button, text: Cancel, size: [100, 22] }
+...
